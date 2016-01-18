@@ -17,7 +17,7 @@
 
 
   app.controller('QueueController', function($scope) {
-    $scope.people = [
+    $scope.queue = [
       {
         name: 'David Cai',
         status: 'waiting in queue'
