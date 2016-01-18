@@ -31,6 +31,10 @@
 
   app.controller('QueueController', function($scope, personService) {
     $scope.people = personService.getPeople();
+
+    $scope.add = function() {
+      
+    };
   });
 
 

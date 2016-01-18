@@ -1,5 +1,8 @@
 <ion-view view-title="Queue">
   <ion-content ng-controller="QueueController">
+    <div class="padding">
+      <button class="button button-block button-calm" ng-click="add()">Add to queue</button>
+    </div>
     <ion-list>
       <ion-item href="#/edit/{{person.id}}" ng-repeat="person in people" class="item-icon-right">
         <h2>{{person.name}}</h2>
