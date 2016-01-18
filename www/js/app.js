@@ -2,21 +2,6 @@
   var app = angular.module('queup', ['ionic']);
 
 
-  app.config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('queue', {
-      url: '/queue',
-      templateUrl: 'partials/queue.html'
-    });
-
-    $stateProvider.state('edit', {
-      url: '/edit',
-      templateUrl: 'partials/edit.html'
-    });
-
-    $urlRouterProvider.otherwise('/queue');
-  });
-
-
   app.controller('QueueController', function($scope) {
     $scope.people = [
       {
@@ -24,7 +9,7 @@
         status: 'waiting in queue'
       },
       {
-        name: 'David Chou',
+        name: 'Jon Burt',
         status: 'waiting in queue'
       }
     ];
