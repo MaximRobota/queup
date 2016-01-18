@@ -8,25 +8,11 @@
       templateUrl: 'templates/queue.html'
     });
     $stateProvider.state('edit', {
-      url: '/edit',
+      url: '/edit/:personId',
       templateUrl: 'templates/edit.html'
     });
 
     $urlRouterProvider.otherwise('/queue');
-  });
-
-
-  app.controller('QueueController', function($scope) {
-    $scope.people = [
-      {
-        name: 'David Cai',
-        status: 'waiting in queue'
-      },
-      {
-        name: 'Jon Burt',
-        status: 'waiting in queue'
-      }
-    ];
   });
 
 
@@ -40,6 +26,26 @@
         StatusBar.styleDefault();
       }
     });
+  });
+
+
+  app.controller('QueueController', function($scope, personService) {
+    $scope.people = personService.getPeople();
+  });
+
+
+  app.controller('EditController', function($scope, $state, personService) {
+    $scope.person = angular.copy(personService.getPerson($state.params.personId));
+
+    $scope.save = function() {
+      personService.updatePerson($scope.person);
+      $state.go('queue');
+    };
+
+    $scope.delete = function() {
+      personService.deletePerson($scope.person.id);
+      $state.go('queue');
+    };
   });
 
 })();
