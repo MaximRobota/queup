@@ -18,18 +18,10 @@
   </head>
   <body ng-app="queup">
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Queue</h1>
-      </ion-header-bar>
-      <ion-content ng-controller="QueueController">
-        <ion-list>
-          <ion-item href="#" ng-repeat="person in people" class="item-icon-right">
-            <h2>{{person.name}}</h2>
-            <p>{{person.status}}</p>
-            <i class="icon ion-chevron-right"></i>
-          </ion-item>
-        </ion-list>
-      </ion-content>
+      <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button></ion-nav-back-button>
+      </ion-nav-bar>
+      <ion-nav-view></ion-nav-view>
     </ion-pane>
   </body>
 </html>

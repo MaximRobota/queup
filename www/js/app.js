@@ -2,6 +2,20 @@
   var app = angular.module('queup', ['ionic']);
 
 
+  app.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('queue', {
+      url: '/queue',
+      templateUrl: 'templates/queue.html'
+    });
+    $stateProvider.state('edit', {
+      url: '/edit',
+      templateUrl: 'templates/edit.html'
+    });
+
+    $urlRouterProvider.otherwise('/queue');
+  });
+
+
   app.controller('QueueController', function($scope) {
     $scope.people = [
       {
