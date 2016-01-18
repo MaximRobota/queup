@@ -1,7 +1,7 @@
 (function() {
   var app = angular.module('queup');
 
-  app.factory('personService', function() {
+  app.factory('queueService', function() {
 
     var people = [
       {
