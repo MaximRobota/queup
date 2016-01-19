@@ -6,7 +6,9 @@
 
     <ion-content ng-controller="ChatController">
       <div class="card" ng-repeat="entry in chat">
-        {{entry.message}}
+        <div class="item item-text-wrap">
+          <h2>{{entry.name}}:</h2> {{entry.message}}
+        </div>
       </div>
     </ion-content>
   </ion-pane>

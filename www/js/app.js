@@ -121,7 +121,12 @@
       if ($scope.chat.length === 0) {
         $scope.chat.$add({
           name: 'David Cai',
-          message: 'Hellow, world!',
+          message: 'Hello! The index of this array are asynchronously synchronized with a remote server.',
+          updatedTime: Firebase.ServerValue.TIMESTAMP
+        });
+        $scope.chat.$add({
+          name: 'Alex Y',
+          message: 'David, stop making things complicate',
           updatedTime: Firebase.ServerValue.TIMESTAMP
         });
       }
