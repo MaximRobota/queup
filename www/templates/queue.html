@@ -4,12 +4,15 @@
       <button class="button button-block button-balanced" ng-click="add()">Add to queue</button>
     </div>
     <ion-list>
-      <ion-item href="#/edit/{{person.id}}" ng-repeat="person in queue" class="item-icon-right">
+      <ion-item href="#/edit/{{person.id}}" ng-repeat="person in queue" class="item-icon-right item-remove-animate">
         <h2>{{person.name}}</h2>
         <p>
           <span am-time-ago="person.updatedTime"></span>: {{person.status}}
         </p>
         <i class="icon ion-chevron-right"></i>
+        <ion-option-button class="button-assertive icon-left ion-ios-trash" ng-click="delete(person.id)">
+          Delete
+        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>
