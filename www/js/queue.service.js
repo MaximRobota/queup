@@ -7,12 +7,14 @@
       {
         id: '1',
         name: 'David Cai',
-        status: 'waiting in queue'
+        status: 'Added to queue',
+        updatedTime: moment().subtract(10, 'minutes')
       },
       {
         id: '2',
         name: 'Jon Burt',
-        status: 'waiting in queue'
+        status: 'Added to queue',
+        updatedTime: moment().subtract(5, 'minutes')
       }
     ];
 
@@ -35,6 +37,7 @@
       },
 
       updatePerson: function(person) {
+        person.updatedTime = moment();
         people[indexOf(person.id)] = person;
       },
 
@@ -45,6 +48,7 @@
 
       addPerson: function(person) {
         person.id = people.length + 1 + '';
+        person.updatedTime = moment();
         people.push(person);
       }
     };

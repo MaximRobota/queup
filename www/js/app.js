@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('queup', ['ionic']);
+  var app = angular.module('queup', ['ionic', 'angularMoment']);
 
 
   app.config(function($stateProvider, $urlRouterProvider) {
@@ -62,7 +62,7 @@
   app.controller('AddController', function($scope, $state, queueService) {
     $scope.person = {
       name: '',
-      status: 'waiting in queue'
+      status: 'Added in queue'
     };
 
     $scope.save = function() {
