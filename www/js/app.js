@@ -5,17 +5,32 @@
   app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('queue', {
       url: '/queue',
-      templateUrl: 'templates/queue.html'
+      views: {
+        'main': {
+          templateUrl: 'templates/queue.html'
+        },
+        'chat': {
+          templateUrl: 'templates/chat.html'
+        }
+      }
     });
     $stateProvider.state('edit', {
       url: '/edit/:personId',
-      controller: 'EditController',
-      templateUrl: 'templates/edit.html'
+      views: {
+        'main': {
+          controller: 'EditController',
+          templateUrl: 'templates/edit.html'
+        }
+      }
     });
     $stateProvider.state('add', {
       url: '/add',
-      controller: 'AddController',
-      templateUrl: 'templates/edit.html'
+      views: {
+        'main': {
+          controller: 'AddController',
+          templateUrl: 'templates/edit.html'
+        }
+      }
     });
 
     $urlRouterProvider.otherwise('/queue');
@@ -35,7 +50,7 @@
   });
 
 
-  app.controller('QueueController', function($scope, $state, Queue) {
+  app.controller('QueueController', function($scope, $state, Queue, Chat) {
     $scope.queue = Queue;
     // $scope.queue.$loaded(function() {
     //   // IF no people is in queue, add one for demo
@@ -96,6 +111,21 @@
       Queue.$add($scope.person);
       $state.go('queue');
     };
+  });
+
+
+  app.controller('ChatController', function($scope, Chat) {
+    $scope.chat = Chat;
+    $scope.chat.$loaded(function() {
+      // IF no chat message, add one for demo
+      if ($scope.chat.length === 0) {
+        $scope.chat.$add({
+          name: 'David Cai',
+          message: 'Hellow, world!',
+          updatedTime: Firebase.ServerValue.TIMESTAMP
+        });
+      }
+    });
   });
 
 })();

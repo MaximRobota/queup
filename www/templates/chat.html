@@ -1,0 +1,13 @@
+<ion-view>
+  <ion-pane>
+    <ion-header-bar class="bar-stable">
+      <h1 class="title">Chat</h1>
+    </ion-header-bar>
+
+    <ion-content ng-controller="ChatController">
+      <div class="card" ng-repeat="entry in chat">
+        {{entry.message}}
+      </div>
+    </ion-content>
+  </ion-pane>
+</ion-view>

@@ -5,13 +5,16 @@
         <input type="text" placeholder="Name" ng-model="person.name" placeholder="Name">
       </ion-input>
       <ion-input class="item item-input">
-        <textarea rows="3"type="text" placeholder="Status" ng-model="person.status" placeholder="Status"></textarea>
+        <textarea rows="5"type="text" placeholder="Status" ng-model="person.status" placeholder="Status"></textarea>
       </ion-input>
     </div>
-    <div class="padding">
-      <div class="button-bar">
-        <button class="button button-outline button-assertive" ng-click="delete()" ng-if="person.$id">Delete</button>
-        <button class="button button-positive" ng-click="save()">Save</button>
+
+    <div class="row">
+      <div class="col" ng-if="person.$id">
+        <button class="button button-block button-outline button-assertive" ng-click="delete()">Delete</button>
+      </div>
+      <div class="col">
+        <button class="button button-block button-positive" ng-click="save()">Save</button>
       </div>
     </div>
   </ion-content>
