@@ -50,7 +50,7 @@
   });
 
 
-  app.controller('QueueController', function($scope, $state, Queue, Chat) {
+  app.controller('QueueController', function($scope, $state, $log, Queue, Chat) {
     $scope.queue = Queue;
     // $scope.queue.$loaded(function() {
     //   // IF no people is in queue, add one for demo
@@ -75,6 +75,10 @@
     //   $scope.queue = queueService.getPeople();
     //   $scope.$broadcast('scroll.refreshComplete');
     // };
+
+    // document.addEventListener('deviceready', function() {
+    //   $log.log('Device: ', angular.toJson(device));
+    // });
   });
 
 
