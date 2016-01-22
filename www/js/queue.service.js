@@ -2,7 +2,7 @@
   var app = angular.module('queup');
 
   app.factory('Queue', function($firebaseArray) {
-    var ref = new Firebase('https://queup.firebaseio.com/people');
+    var ref = new Firebase('https://queupapp.firebaseio.com');
     return $firebaseArray(ref);
   });
 })();
