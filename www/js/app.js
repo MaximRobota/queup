@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('queup', ['ionic', 'angularMoment', 'firebase']);
+  var app = angular.module('queup', ['ionic', 'angularMoment', 'firebase', 'ngCordova']);
 
 
   app.config(function($stateProvider, $urlRouterProvider) {
@@ -50,7 +50,9 @@
   });
 
 
-  app.controller('QueueController', function($scope, $state, $log, Queue, Chat) {
+  app.controller('QueueController', function($scope, $state, $log,
+    $ionicPlatform, $cordovaGeolocation, Queue, Chat) {
+
     $scope.queue = Queue;
     // $scope.queue.$loaded(function() {
     //   // IF no people is in queue, add one for demo
@@ -79,6 +81,23 @@
     // document.addEventListener('deviceready', function() {
     //   $log.log('Device: ', angular.toJson(device));
     // });
+
+    $ionicPlatform.ready(function() {
+      var posOptions = {timeout: 10000, enableHighAccuracy: true};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          $scope.coords = position.coords;
+          // var lat  = position.coords.latitude;
+          // var long = position.coords.longitude;
+        },
+        function(err) {
+          // error
+          $log.log('getCurrentPosition error: ' + angular.toJson(err));
+        }
+      );
+    });
+
   });
 
 
