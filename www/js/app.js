@@ -32,6 +32,15 @@
         }
       }
     });
+    $stateProvider.state('map', {
+      url: '/map',
+      views: {
+        'main': {
+          controller: 'MapController',
+          templateUrl: 'templates/map.html'
+        }
+      }
+    });
 
     $urlRouterProvider.otherwise('/queue');
   });
@@ -50,8 +59,7 @@
   });
 
 
-  app.controller('QueueController', function($scope, $state, $log,
-    $ionicPlatform, $cordovaGeolocation, Queue, Chat) {
+  app.controller('QueueController', function($scope, $state, $log, Queue, Chat) {
 
     $scope.queue = Queue;
     // $scope.queue.$loaded(function() {
@@ -81,22 +89,6 @@
     // document.addEventListener('deviceready', function() {
     //   $log.log('Device: ', angular.toJson(device));
     // });
-
-    $ionicPlatform.ready(function() {
-      var posOptions = {timeout: 10000, enableHighAccuracy: true};
-      $cordovaGeolocation
-        .getCurrentPosition(posOptions)
-        .then(function (position) {
-          $scope.coords = position.coords;
-          // var lat  = position.coords.latitude;
-          // var long = position.coords.longitude;
-        },
-        function(err) {
-          // error
-          $log.log('getCurrentPosition error: ' + angular.toJson(err));
-        }
-      );
-    });
 
   });
 
@@ -154,6 +146,88 @@
         });
       }
     });
+  });
+
+
+  app.controller('MapController', function($scope, $log, $ionicPlatform, $cordovaGeolocation, $cordovaLaunchNavigator) {
+
+    $ionicPlatform.ready(function() {
+      var posOptions = {timeout: 10000, enableHighAccuracy: true};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          $scope.coords = position.coords;
+          // var lat  = position.coords.latitude;
+          // var long = position.coords.longitude;
+
+          displayMap($scope.coords);
+        },
+        function(err) {
+          // error
+          $log.log('getCurrentPosition error: ' + angular.toJson(err));
+        }
+      );
+    });
+
+
+    function displayMap(coords) {
+
+      var home = new google.maps.LatLng(coords.latitude, coords.longitude);
+
+      var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        // center: {lat: coords.latitude, lng: coords.longitude},
+        center: home,
+        zoom: 11
+      });
+
+      var homeMarker = new google.maps.Marker({
+        position: home,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 3
+        },
+        map: map
+      });
+
+      var request = {
+        location: home,
+        radius: '50000',
+        name: 'mutual fund store'
+      };
+
+      var service = new google.maps.places.PlacesService(map);
+      service.nearbySearch(request, function cbNearbySearch(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            var place = results[i];
+            createMarker(results[i]);
+          }
+        }
+      });
+
+      function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          animation: google.maps.Animation.DROP,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          // infowindow.setContent(place.name);
+          // infowindow.open(map, this);
+          var start = [home.lat(), home.lng()];
+          var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
+          $cordovaLaunchNavigator.navigate(destination, start).then(function() {
+            $log.log("Navigator launched");
+          }, function (err) {
+            $log.error(err);
+          });
+        });
+
+        return marker;
+      }
+    }
   });
 
 })();
