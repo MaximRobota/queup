@@ -213,21 +213,20 @@
           position: place.geometry.location
         });
 
-        google.maps.event.addListener(marker, 'click', function() {
-          // infowindow.setContent(place.name);
-          // infowindow.open(map, this);
+        marker.addListener('click', function() {
           var start = [home.lat(), home.lng()];
           var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
+          $log.log(start, destination);
           $cordovaLaunchNavigator.navigate(destination, start).then(function() {
-            $log.log("Navigator launched");
-          }, function (err) {
+            $log.log('Navigator launched');
+          }, function(err) {
             $log.error(err);
           });
         });
 
         return marker;
       }
-    }
+    } // function displayMap
   });
 
 })();
