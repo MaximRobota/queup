@@ -41,6 +41,15 @@
         }
       }
     });
+    $stateProvider.state('camera', {
+      url: '/camera',
+      views: {
+        'main': {
+          controller: 'CameraController',
+          templateUrl: 'templates/camera.html'
+        }
+      }
+    });
 
     $urlRouterProvider.otherwise('/queue');
   });
@@ -177,7 +186,7 @@
       var map = new google.maps.Map(document.getElementById('map-canvas'), {
         // center: {lat: coords.latitude, lng: coords.longitude},
         center: home,
-        zoom: 11
+        zoom: 10
       });
 
       var homeMarker = new google.maps.Marker({
@@ -227,6 +236,24 @@
         return marker;
       }
     } // function displayMap
+  });
+
+
+  app.controller('CameraController', function($scope, $log, $cordovaCamera) {
+    $scope.photoUrl = 'http://placehold.it/300x300';
+
+    $scope.takePhoto = function() {
+      var options = {
+        destinationType: Camera.DestinationType.DATA_URL,
+        encodingType: Camera.EncodingType.JPEG
+      };
+      $cordovaCamera.getPicture(options).then(function(data) {
+        $log.log('Image data:', angular.toJson(data));
+        $scope.photoUrl = 'data:image/jpeg;base64,' + data;
+      }, function(err) {
+        $log.error(err);
+      });
+    };
   });
 
 })();
