@@ -213,16 +213,16 @@
           position: place.geometry.location
         });
 
-        marker.addListener('click', function() {
-          var start = [home.lat(), home.lng()];
-          var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
-          $log.log(start, destination);
-          $cordovaLaunchNavigator.navigate(destination, start).then(function() {
-            $log.log('Navigator launched');
-          }, function(err) {
-            $log.error(err);
-          });
-        });
+        // marker.addListener('click', function() {
+        //   var start = [home.lat(), home.lng()];
+        //   var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
+        //   $log.log(start, destination);
+        //   $cordovaLaunchNavigator.navigate(destination, start).then(function() {
+        //     $log.log('Navigator launched');
+        //   }, function(err) {
+        //     $log.error(err);
+        //   });
+        // });
 
         return marker;
       }
