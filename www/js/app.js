@@ -161,13 +161,10 @@
   app.controller('MapController', function($scope, $log, $ionicPlatform, $cordovaGeolocation) {
 
     $ionicPlatform.ready(function() {
-      var posOptions = {timeout: 10000, enableHighAccuracy: true};
       $cordovaGeolocation
-        .getCurrentPosition(posOptions)
+        .getCurrentPosition({timeout: 10000, enableHighAccuracy: true})
         .then(function (position) {
           $scope.coords = position.coords;
-          // var lat  = position.coords.latitude;
-          // var long = position.coords.longitude;
 
           displayMap($scope.coords);
         },
@@ -207,10 +204,9 @@
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch(request, function cbNearbySearch(results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            var place = results[i];
-            createMarker(results[i]);
-          }
+          angular.forEach(results, function(place) {
+            createMarker(place);
+          })
         }
       });
 
@@ -223,14 +219,12 @@
         });
 
         marker.addListener('click', function() {
-          map.setZoom(8);
+          map.setZoom(15);
           map.setCenter(marker.getPosition());
 
-          var start = [home.lat(), home.lng()];
           var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
-          $log.log(start, destination);
 
-          launchnavigator.navigate(destination, start,
+          launchnavigator.navigate(destination, [home.lat(), home.lng()],
             function() {
               $log.log('Navigator launched');
             },
