@@ -158,7 +158,7 @@
   });
 
 
-  app.controller('MapController', function($scope, $log, $ionicPlatform, $cordovaGeolocation, $cordovaLaunchNavigator) {
+  app.controller('MapController', function($scope, $log, $ionicPlatform, $cordovaGeolocation) {
 
     $ionicPlatform.ready(function() {
       var posOptions = {timeout: 10000, enableHighAccuracy: true};
@@ -222,16 +222,23 @@
           position: place.geometry.location
         });
 
-        // marker.addListener('click', function() {
-        //   var start = [home.lat(), home.lng()];
-        //   var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
-        //   $log.log(start, destination);
-        //   $cordovaLaunchNavigator.navigate(destination, start).then(function() {
-        //     $log.log('Navigator launched');
-        //   }, function(err) {
-        //     $log.error(err);
-        //   });
-        // });
+        marker.addListener('click', function() {
+          map.setZoom(8);
+          map.setCenter(marker.getPosition());
+
+          var start = [home.lat(), home.lng()];
+          var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
+          $log.log(start, destination);
+
+          launchnavigator.navigate(destination, start,
+            function() {
+              $log.log('Navigator launched');
+            },
+            function(err) {
+              $log.error(err);
+            }
+          );
+        });
 
         return marker;
       }
