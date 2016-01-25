@@ -224,7 +224,10 @@
 
           var destination = [place.geometry.location.lat(), place.geometry.location.lng()];
 
-          $cordovaLaunchNavigator.navigate(destination, [home.lat(), home.lng()]).then(function() {
+          $cordovaLaunchNavigator.navigate(
+            destination,
+            [home.lat(), home.lng()],
+            { preferGoogleMaps: true }).then(function() {
               $log.log('Navigator launched');
             }, function(err) {
               $log.error(err);
