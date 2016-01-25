@@ -24,7 +24,7 @@ bower i
 Add platform and plugins:
 ```bash
 ionic platform add ios
-ionic plugin add cordova-plugin-device cordova-plugin-whitelist cordova-plugin-console cordova-plugin-splashscreen cordova-plugin-statusbar ionic-plugin-keyboard cordova-plugin-geolocation cordova-plugin-camera
+ionic plugin add cordova-plugin-device cordova-plugin-whitelist cordova-plugin-console cordova-plugin-splashscreen cordova-plugin-statusbar ionic-plugin-keyboard cordova-plugin-geolocation cordova-plugin-camera uk.co.workingedge.phonegap.plugin.launchnavigator
 ```
 
 ## Run
